@@ -1,2 +1,2 @@
 ## Tic-tac-toe
-# tic tac toe game using typescript and HTML 
+### tic tac toe game using typescript and HTML 
