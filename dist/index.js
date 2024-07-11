@@ -1,30 +1,47 @@
-var currentplayer = "X";
-var cells = document.querySelectorAll('td');
-var statusText = document.getElementById('status');
-var strong = document.createElement("strong");
-var optionsToWin = [
+const optionsToWin = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8],
     [0, 3, 6], [1, 4, 7], [2, 5, 8],
     [0, 4, 8], [2, 4, 6]
 ];
-var grid = [
-    false, false, false,
-    false, true, false,
-    false, false, false,
-];
-function handleCellClick(event) {
-    console.log('Cell clicked:', event);
+const html = document.querySelector('html');
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+function isCheckedByPlayer(checkbox, player) {
+    return checkbox.checked && parseInt(checkbox.getAttribute('data-player')) === player;
 }
-cells.forEach(function (cell) { return cell.addEventListener('click', handleCellClick); });
-statusText === null || statusText === void 0 ? void 0 : statusText.appendChild(strong);
-strong.textContent = ("The winner is " + currentplayer);
-function handleClick(event) {
-    var gridCell = event.target;
-    if (gridCell.classList.contain('player-1')) {
-        gridCell.classList.replace('player-1', 'player-2');
+function hasWon(player) {
+    for (const options of optionsToWin) {
+        const checkbox1 = checkboxes[options[0]];
+        const checkbox2 = checkboxes[options[1]];
+        const checkbox3 = checkboxes[options[2]];
+        if (isCheckedByPlayer(checkbox1, player) &&
+            isCheckedByPlayer(checkbox2, player) &&
+            isCheckedByPlayer(checkbox3, player)) {
+            return true;
+        }
+    }
+    return false;
+}
+function handleCheckboxClick(event) {
+    const checkbox = event.target;
+    if (checkbox.hasAttribute('data-player') || html.hasAttribute('data-winner')) {
+        event.preventDefault();
+        return;
+    }
+    const currentPlayer = parseInt(html.getAttribute('data-current-player'));
+    checkbox.setAttribute('data-player', currentPlayer.toString());
+    if (hasWon(currentPlayer)) {
+        html.setAttribute('data-winner', currentPlayer.toString());
+        return;
+    }
+    if (currentPlayer === 1) {
+        html.setAttribute('data-current-player', "2");
     }
     else {
-        gridCell.classList.replace('player-2', 'player-1');
+        html.setAttribute('data-current-player', "1");
     }
+}
+html.setAttribute('data-current-player', "1");
+for (const checkbox of checkboxes) {
+    checkbox.addEventListener('click', handleCheckboxClick);
 }
 //# sourceMappingURL=index.js.map

@@ -1,8 +1,6 @@
-declare let currentplayer: string;
-declare const cells: NodeListOf<HTMLTableCellElement>;
-declare const statusText: HTMLParagraphElement;
-declare const strong: HTMLElement;
-declare var optionsToWin: number[][];
-declare var grid: boolean[];
-declare function handleCellClick(event: Event): void;
-declare function handleClick(event: any): void;
+declare const optionsToWin: Array<Array<number>>;
+declare const html: HTMLHtmlElement;
+declare const checkboxes: NodeList;
+declare function isCheckedByPlayer(checkbox: HTMLInputElement, player: number): boolean;
+declare function hasWon(player: number): boolean;
+declare function handleCheckboxClick(event: MouseEvent): void;

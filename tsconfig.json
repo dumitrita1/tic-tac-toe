@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+      "target": "es2015",
       "outDir": "dist",
       "declaration": true,
       "noEmitOnError": true,
-      "sourceMap": true
+      "sourceMap": true,
+      "moduleResolution": "Node"
   },
   "include": [
       "src/*.ts"
