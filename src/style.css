@@ -1,25 +1,141 @@
-body {
+:root {
+    --color-player-1: blue;
+    --color-player-2: red;
+}
+
+main {
+    text-align: center;
+}
+
+input[type="checkbox"] {
+    position: relative;
+    appearance: none;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: transparent;
+}
+
+input[type="checkbox"]:focus {
+    outline: 0;
+    box-shadow: inset 0 0 4px 2px cornflowerblue;
+}
+
+input[type="checkbox"][data-player="1"]:checked ~ .cross {
+    display: block;
+}
+
+input[type="checkbox"][data-player="2"]:checked ~ .circle {
+    display: block;
+}
+
+.grid {
+    display: inline-grid;
+    grid-template-columns: repeat(3, 100px);
+    justify-content: center;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.grid-cell {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-
-table {
-    border-collapse: collapse;
-    width: 300px;
-    height: 300px;
-    background-color: #fff;
-}
-  
-td {
-    border:solid #000;
     width: 100px;
     height: 100px;
-    transition: background-color 0.3s;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
 }
-  
-td:hover {
-    background-color: #e0e0e0;
-}
-  
 
+.circle,
+.cross {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: none;
+    width: 50%;
+    aspect-ratio: 1 / 1;
+    fill: none;
+    stroke-width: 5;
+    transform: translate(-50%, -50%);
+}
+
+.cross {
+    stroke: var(--color-player-1);
+}
+
+.circle {
+    stroke: var(--color-player-2);
+}
+
+.hint-player-1 {
+    color: var(--color-player-1);
+}
+
+.hint-player-2 {
+    color: var(--color-player-2);
+}
+
+.status {
+    display: none;
+    width: max-content;
+    padding: 0.25em;
+    margin-top: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid transparent;
+    border-radius: 0.125em;
+}
+
+.status-player-1 {
+    border-color: var(--color-player-1);
+}
+
+.status-player-2 {
+    border-color: var(--color-player-2);
+}
+
+
+html[data-current-player="1"] .status-player-1 {
+    display: block;
+}
+
+html[data-current-player="2"] .status-player-2 {
+    display: block;
+}
+
+.winner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    display: none;
+    padding: 0.5em;
+    border: 2px solid transparent;
+    border-radius: 0.25em;
+    font-size: 3rem;
+    font-weight: bold;
+    background-color: white;
+    box-shadow: 2px 2px 4px hsl(0deg 0 0 / 0.2);
+    transform: translate(-50%, -50%);
+}
+
+html[data-winner="1"] .winner-player-1 {
+    display: block;
+    border-color: var(--color-player-1);
+}
+
+html[data-winner="2"] .winner-player-2 {
+    display: block;
+    border-color: var(--color-player-2);
+}
+
+.visually-hidden {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
